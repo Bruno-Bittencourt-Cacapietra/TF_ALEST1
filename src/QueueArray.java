@@ -1,20 +1,26 @@
 public class QueueArray{
 
     // Atributos
-    private ListArrayOfInteger fila;
+    private ListArrayOfPaciente fila;
+    private int capacidade;
 
-    public QueueArray() {
-        fila = new ListArrayOfInteger();
+    public QueueArray(int capacidade) {
+        fila = new ListArrayOfPaciente();
+        this.capacidade = capacidade;
     }
 
     // insere o elemento no final da fila
-    public void enqueue(Integer element) {
+    public boolean enqueue(Paciente element) {
+        if(isFull()){
+            return false;
+        }
         fila.add(element);
+        return true;
     }
 
     // remove e retorna o elemento e do início da fila, 
     // e dá erro se a fila estiver vazia
-    public Integer dequeue() {
+    public Paciente dequeue() {
         if(fila.isEmpty()){
             throw new IndexOutOfBoundsException ("Fila vazia");
         }
@@ -23,7 +29,7 @@ public class QueueArray{
 
     // retorna, mas não remove, o primeiro elemento da fila, 
     // e dá erro se a fila estiver vazia
-    public Integer head() {
+    public Paciente head() {
         if(fila.isEmpty()){
             throw new IndexOutOfBoundsException ("Fila vazia");
         }
@@ -40,29 +46,12 @@ public class QueueArray{
         return fila.isEmpty();
     }
 
+    public boolean isFull(){
+        return fila.size() == capacidade;
+    }
+
     //esvazia a fila
     public void clear() {
         fila.clear();
     }
-
-    public QueueArray clone(){
-        QueueArray queue = new QueueArray();
-        for(int i = 0; i < fila.size(); i++ ){
-            queue.enqueue(fila.get(i));
-        }
-        return queue;
-    }
-
-    public void reverse(){
-        fila.reverse();
-    }
-
-    public StackArray toStack(){
-        StackArray stack = new StackArray();
-        for(int i = 0; i < fila.size(); i++){
-            stack.push(fila.get(i));
-        }
-        return stack;
-    }
-
 }

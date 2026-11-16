@@ -3,17 +3,17 @@
  * @author Isabel H. Manssour, Gabriel Fonseca Silva
  */
 
-public class ListArrayOfInteger {
+public class ListArrayOfPaciente {
 
     // Atributos
     private static final int INITIAL_SIZE = 10;
-    private Integer[] data;
+    private Paciente[] data;
     private int count;
 
     /**
      * Construtor da lista.
      */
-    public ListArrayOfInteger() {
+    public ListArrayOfPaciente() {
         this(INITIAL_SIZE);
     }
 
@@ -21,11 +21,11 @@ public class ListArrayOfInteger {
      * Construtor da lista.
      * @param tam tamanho inicial a ser alocado para data[]
      */
-    public ListArrayOfInteger(int tam) {
+    public ListArrayOfPaciente(int tam) {
         if (tam <= 0) {
             tam = INITIAL_SIZE;
         }
-        data = new Integer[tam];
+        data = new Paciente[tam];
         count = 0;
     }
 
@@ -33,7 +33,7 @@ public class ListArrayOfInteger {
      * Esvazia a lista.
      */
     public void clear() { // O(1)
-        data = new Integer[INITIAL_SIZE];
+        data = new Paciente[INITIAL_SIZE];
         count = 0;
     }
 
@@ -57,7 +57,7 @@ public class ListArrayOfInteger {
      * Adiciona um elemento ao final da lista.
      * @param element elemento a ser adicionado ao final da lista
      */
-    public void add(Integer element) { // O(1) 
+    public void add(Paciente element) { // O(1) 
         if(count == data.length) {
             setCapacity(data.length * 2);
         }
@@ -71,7 +71,7 @@ public class ListArrayOfInteger {
      * @return o elemento da posicao especificada
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-    public int get(int index) { // O(1)
+    public Paciente get(int index) { // O(1)
         if(index < 0 || index >= size()){
             throw new IndexOutOfBoundsException("Deu ruim");
         }
@@ -102,7 +102,7 @@ public class ListArrayOfInteger {
         if(newCapacity == data.length) {
             return;
         }
-        Integer[] newData = new Integer[newCapacity];
+        Paciente[] newData = new Paciente[newCapacity];
         int min = 0;
         if(data.length < newCapacity){
             min = data.length;
@@ -121,7 +121,7 @@ public class ListArrayOfInteger {
      * @param element o elemento a ser removido
      * @return true se a lista contem o elemento especificado
      */
-    public boolean remove(Integer element) { // O(n)
+    public boolean remove(Paciente element) { // O(n)
         int index = indexOf(element);
         if (index == -1) {
             return false;
@@ -138,11 +138,11 @@ public class ListArrayOfInteger {
      * @return o elemento armazenado anteriormente na posicao da lista
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-    public int set(int index, Integer element) {// O(1)
+    public Paciente set(int index, Paciente element) {// O(1)
         if(index < 0 || index >= size()){
             throw new IndexOutOfBoundsException("Deu ruim");
         }
-        Integer aux = data[index];
+        Paciente aux = data[index];
         data[index] = element;
         return aux;
     }
@@ -153,7 +153,7 @@ public class ListArrayOfInteger {
      * @param element o elemento a ser procurado
      * @return true se a lista contem o elemento passado por parametro
      */
-    public boolean contains(Integer element) { // O(n)
+    public boolean contains(Paciente element) { // O(n)
         return indexOf(element) != -1;
     }
     
@@ -164,7 +164,7 @@ public class ListArrayOfInteger {
      * @param element elemento a ser inserido
      * @throws IndexOutOfBoundsException se (index < 0 || index > size())
      */
-    public void addByIndex(int index, Integer element) { // O(n)
+    public void addByIndex(int index, Paciente element) { // O(n)
         if (index < 0 || index > size()) {
             throw new IndexOutOfBoundsException("Deu ruim");
         }
@@ -186,7 +186,7 @@ public class ListArrayOfInteger {
      * @return o indice da primeira ocorrencia do elemento na lista, ou -1 se a
      * lista nao contem o elemento
      */
-    public int indexOf(Integer element) { // O(n)
+    public int indexOf(Paciente element) { // O(n)
         for (int i = 0; i < count; i++) {
             if (data[i].equals(element)) {
                 return i;
@@ -202,77 +202,17 @@ public class ListArrayOfInteger {
      * @return o elemento que foi removido da lista
      * @throws IndexOutOfBoundsException se (index < 0 || index >= size())
      */
-    public Integer removeByIndex(int index) { // O(n)
+    public Paciente removeByIndex(int index) { // O(n)
         if (index < 0 || index >= size()) {
             throw new IndexOutOfBoundsException("Deu ruim");
         }
-        Integer remove = data[index];
+        Paciente remove = data[index];
         for (int i = index; i < count - 1; i++) {
             data[i] = data[i + 1];
         }
         data[count - 1] = null;
         count--;
         return remove;
-    }
-
-    public void sort(){// O(n²)
-        for(int i = 0; i < count; i ++){ 
-            for(int j = 0; j < count - 1 -i; j++){
-                if(data[j] > data[j+1]){
-                    Integer aux = data[j];
-                    data[j] = data[j+1];
-                    data [j+1] = aux;
-                }
-            }
-        }
-    }
-    public void addIncreasingOrder(Integer element){// O(n²)
-        add(element);
-        sort();
-    }
-
-    public void reverse(){// O(n)
-        Integer[] newData = new Integer[data.length];
-        int index = 0;
-        for(int i = count -1; i > -1; i--){
-            newData[index] = data[i];
-            index++;
-        }
-        data = newData;
-    }
-
-    public void unique(){// O(n²)
-        if(data.length == 0){
-            return;
-
-        }
-        int index = 0;
-        Integer[] newData = new Integer [data.length];
-        for(int i = 0; i < count; i++){ 
-            boolean ehUnique = true;
-            for(int j = 0; j < i; j++){
-                if(data[i].equals(data[j])){
-                ehUnique = false;
-                break;
-                }
-            }
-            if(ehUnique){
-                newData[index] = data[i];
-                index++;
-            }
-        }
-        data = newData;
-        count = index;
-    }
-
-    public int countOccurrences(Integer element){//O(n)
-        int countIndex = 0;
-        for(int i = 0; i < count; i++){
-            if(data[i].equals(element)){
-                countIndex++;
-            }
-        }
-        return countIndex;
     }
 }
 
