@@ -60,5 +60,8 @@ public class Paciente {
         return -1;
     }
 
+    public String toString(){
+        return "ID: " + id + "\nPrioridade: " + prioridade + "\nRodada em que chegou: " + rodadaChegada + "\nRodade de atendimento: " + rodadaAtendimento + "\nTempo restante para próxima operação: " + tempoRestante;
+    }
 
 }
