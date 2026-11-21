@@ -54,4 +54,17 @@ public class QueueArray{
     public void clear() {
         fila.clear();
     }
+
+    @Override
+    public String toString() {
+        StringBuilder s = new StringBuilder("[");
+        for (int i = 0; i < fila.size(); i++) {
+            s.append(fila.get(i).getId());
+            if (i != fila.size() - 1) {
+                s.append(", ");
+            }
+        }
+        s.append("]");
+        return s.toString();
+    }
 }

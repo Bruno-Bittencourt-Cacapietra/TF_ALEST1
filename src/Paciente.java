@@ -5,12 +5,12 @@ public class Paciente {
     private int rodadaAtendimento;
     private int tempoRestante;
 
-    public Paciente(String id, String prioridade, int rodadaChegada, int rodadaAtendimento, int tempoRestante){
+    public Paciente(String id, int rodadaChegada){
         this.id = id;
         this.prioridade = 0;
         this.rodadaChegada = rodadaChegada;
         this.rodadaAtendimento = -1;
-        this.tempoRestante = tempoRestante;
+        this.tempoRestante = 0;
     }
 
     public String getId(){
